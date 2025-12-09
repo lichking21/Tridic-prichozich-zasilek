@@ -1,0 +1,5 @@
+[
+  { "ID": 1, "Weight": 2, "Address": "Dalbaebskaya", "CustomerName": "Kotok", "Size": "Small", "Status": "Pending", "COD": 10 },
+  { "ID": 2, "Weight": 28, "Address": "Manasa", "CustomerName": "Hui", "Size": "Big", "Status": "Pending", "COD": 20 },
+  { "ID": 3, "Weight": 4,  "Address": "DoBronx", "CustomerName": "Charles", "Size": "Medium", "Status": "Pending", "COD": 11 }
+]

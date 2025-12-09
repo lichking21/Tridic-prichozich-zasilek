@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Dodik",
+    "Addresses": ["Manasa", "DoBronx"],
+    "MaxWeight": 25,
+    "MaxSize": "Medium"
+  },
+  {
+    "Name": "Eben",
+    "Addresses": ["Dalbaebskaya"],
+    "MaxWeight": 40,
+    "MaxSize": "Big"
+  }
+]
