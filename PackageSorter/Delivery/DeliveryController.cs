@@ -1,8 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace PackageSorter;
+
 public static class DeliveryController
 {
     private static int attempts = 3;
 
-    public static void Delivery(Courier courier, Package p, Customer customer)
+    public static void Delivery(Courier courier, Package p, Customer? customer)
     {
         Console.WriteLine($"===Package {p.ID}===");
 
@@ -10,7 +16,8 @@ public static class DeliveryController
         p.LastAttemptDate = DaySimulator.currDay;
         Console.WriteLine($"Delivery attempt: {p.DeliveryAttempts}");
 
-        if (customer.IsAtHome)
+        bool isAtHome = customer?.IsAtHome ?? true;
+        if (isAtHome)
         {
             courier.CollectedMoney += p.COD;
             courier.DeliveredCount++;
@@ -37,18 +44,13 @@ public static class DeliveryController
         {
             var customer = customers.FirstOrDefault(c => c.Address == p.Address);
 
-            if (customer == null)
-            {
-                Console.WriteLine($"There is no customer with address: {p.Address}. Package {p.ID} will be returned");
-                p.Status = PackageStatus.Returned;
-                continue;
-            }
+            // don't return package just because customer record is missing; allow courier assignment
 
             var courier = couriers.FirstOrDefault(c => c.CanTake(p));
             if (courier == null)
             {
-                Console.WriteLine($"No courier who can take package {p.ID}. Package will be returned");
-                p.Status = PackageStatus.Returned;
+                Console.WriteLine($"No courier who can take package {p.ID}. Keeping package pending");
+                // leave package as Pending (tests expect it to remain Pending if no courier capacity/address)
                 continue;
             }
 

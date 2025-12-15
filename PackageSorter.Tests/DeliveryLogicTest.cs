@@ -1,8 +1,8 @@
 using Xunit;
 using System.Collections.Generic;
-using Semestalka;
+using PackageSorter;
 
-namespace Semestalka.Tests
+namespace PackageSorter.Tests
 {
     public class DeliveryLogicTests
     {

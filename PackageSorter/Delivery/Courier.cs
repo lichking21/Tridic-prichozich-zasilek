@@ -1,4 +1,7 @@
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
+
+namespace PackageSorter;
 
 public class Courier
 {
@@ -19,7 +22,8 @@ public class Courier
     {
         bool canLift = (CurrentWeight + p.Weight) <= MaxWeight;
         bool canFit = p.Size <= MaxSize;
-        bool correctAddress = Addresses.Contains(p.Address);
+        // if Addresses list is empty, treat as wildcard (can deliver anywhere)
+        bool correctAddress = Addresses.Count == 0 || Addresses.Contains(p.Address);
 
         return correctAddress && canLift && canFit;
     }

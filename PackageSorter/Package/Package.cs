@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace Semestalka
+namespace PackageSorter
 {
     public class Package
     {

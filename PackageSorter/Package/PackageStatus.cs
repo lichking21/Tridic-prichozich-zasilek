@@ -1,3 +1,4 @@
+namespace PackageSorter;
 public enum PackageStatus
 {
     Delivered,

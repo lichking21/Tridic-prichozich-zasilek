@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Semestralka\Semestralka.csproj" />
+    <ProjectReference Include="..\PackageSorter\Semestralka.csproj" />
   </ItemGroup>
 
 </Project>

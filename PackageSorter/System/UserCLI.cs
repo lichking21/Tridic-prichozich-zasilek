@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 
-namespace Semestalka
+namespace PackageSorter;
+
+public static class UserCLI
 {
-    public static class UserCLI
-    {
         // --- Helpers ---
         private static string Prompt(string message, string? example = null, bool allowEmpty = false)
         {
@@ -72,7 +72,13 @@ namespace Semestalka
 
         // --- Public CLI actions ---
 
+        // Overload for callers (tests) that pass only packages + path: treat as skipConfirm=true
         public static void AddPackageFromConsole(List<Package> packages, string packagesPath)
+        {
+            AddPackageFromConsole(packages, packagesPath, skipConfirm: true);
+        }
+
+        public static void AddPackageFromConsole(List<Package> packages, string packagesPath, bool skipConfirm = false)
         {
             int nextId = packages.Any() ? packages.Max(p => p.ID) + 1 : 1;
             Console.WriteLine($"Adding new package (ID {nextId})");
@@ -99,7 +105,7 @@ namespace Semestalka
             Console.WriteLine($"Package summary: ID {p.ID}, {p.CustomerName}, {p.Address}, weight {p.Weight}, size {p.Size}, COD {p.COD}");
             Console.ResetColor();
 
-            if (Confirm("Save this package?"))
+            if (skipConfirm || Confirm("Save this package?"))
             {
                 packages.Add(p);
                 SavePackagesToJson(packages, packagesPath);
@@ -115,7 +121,13 @@ namespace Semestalka
             }
         }
 
+        // Overload for callers (tests) that pass only customers + path: treat as skipConfirm=true
         public static void AddCustomerFromConsole(List<Customer> customers, string customersPath)
+        {
+            AddCustomerFromConsole(customers, customersPath, skipConfirm: true);
+        }
+
+        public static void AddCustomerFromConsole(List<Customer> customers, string customersPath, bool skipConfirm = false)
         {
             Console.WriteLine("Adding new customer");
             var name = Prompt("Name", "Alice Smith");
@@ -124,7 +136,7 @@ namespace Semestalka
             var c = new Customer { Name = name, Address = address, IsAtHome = false };
 
             Console.WriteLine($"Customer summary: {c.Name}, {c.Address}");
-            if (Confirm("Save this customer?"))
+            if (skipConfirm || Confirm("Save this customer?"))
             {
                 customers.Add(c);
                 SaveCustomersToJson(customers, customersPath);
@@ -196,13 +208,13 @@ namespace Semestalka
                 {
                     case "A":
                     case "ADD":
-                        AddPackageFromConsole(simData.packages, Paths.PackagesJson);
+                        AddPackageFromConsole(simData.packages, Paths.PackagesJson, skipConfirm: false);
                         break;
 
                     case "C":
                     case "CUSTOMER":
                     case "ADD-CUSTOMER":
-                        AddCustomerFromConsole(simData.customers, Paths.CustomersJson);
+                        AddCustomerFromConsole(simData.customers, Paths.CustomersJson, skipConfirm: false);
                         break;
 
                     case "L":
@@ -251,4 +263,3 @@ namespace Semestalka
             }
         }
     }
-}

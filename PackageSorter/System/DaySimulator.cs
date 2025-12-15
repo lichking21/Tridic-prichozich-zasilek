@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Semestalka
+namespace PackageSorter;
+
+public class DaySimulator
 {
-    public class DaySimulator
-    {
         public static DateTime currDay = DateTime.Today;
 
         public static void PrepNextDay(List<Package> packages, List<Customer> customers, List<Courier> couriers)
@@ -61,4 +61,3 @@ namespace Semestalka
 
         } 
     }
-}

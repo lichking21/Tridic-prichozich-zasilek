@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Semestalka;
+using PackageSorter;
 
-namespace Semestalka.Tests
+namespace PackageSorter.Tests
 {
     public class ProgramConsoleTests
     {
@@ -25,7 +25,7 @@ namespace Semestalka.Tests
 
             try 
             {
-                Program.AddPackageFromConsole(packages, tempFile);
+                UserCLI.AddPackageFromConsole(packages, tempFile);
             }
             finally
             {
@@ -58,7 +58,7 @@ namespace Semestalka.Tests
             // Act
             try
             {
-                Program.AddCustomerFromConsole(customers, tempFile);
+                UserCLI.AddCustomerFromConsole(customers, tempFile);
             }
             finally
             {
